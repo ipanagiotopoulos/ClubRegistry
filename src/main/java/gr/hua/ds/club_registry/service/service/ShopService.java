@@ -6,7 +6,8 @@ import java.util.List;
 
 public interface ShopService {
     public List <Shop> findAllShops();
-    public  List<Shop> findAllActiveShops(Boolean active);
+    public  List<Shop> findAllActiveShops();
+    public  List<Shop> findAllInActiveShops();
     public  List<Shop> findShopsByClubName(String clubName);
     public List<Shop>  findShopsByTeamName( String teamName );
     public List <Shop> findShopsByCity( String cityName );
