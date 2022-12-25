@@ -17,5 +17,5 @@ public interface ClubDAO {
     public Club getClub(String taxNo);
     public void insertClub(Club club);
     public void deleteClub(Club club);
-    public void updateClub( Club oldClub, Shop newClub);
+    public void updateClub( Club oldClub, Club newClub);
 }

@@ -8,7 +8,7 @@ import java.sql.Date;
 import java.util.List;
 
 public interface ShopDAO {
-        public List <Shop> getClubs();
+        public List <Shop> getShops();
         public List <Shop>  getShopsByActiveStatus(Boolean active);
         public List <Shop>  getShopsByClubName(String clubName);
         public List <Shop>  getShopsByTeamName(String teamName);

@@ -1,6 +1,7 @@
 package gr.hua.ds.club_registry.db.models;
 
 import jakarta.persistence.*;
+import gr.hua.ds.club_registry.db.enums.Roles;
 import lombok.Data;
 
 @Entity
@@ -24,6 +25,8 @@ public class User {
         @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
         private UserProfile profile;
 
+        @Column(name = "role")
+        private Roles userRole;
         //@PrimaryKeyJoinColumn
         //@OneToOne(fetch = FetchType.LAZY)
         //private Authority authority;

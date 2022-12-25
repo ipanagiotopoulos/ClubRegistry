@@ -25,7 +25,7 @@ public class Shop {
     @Column(name = "active")
     private Boolean active;
 
-    @Column(name = "active")
+    @Column(name = "city")
     private String city;
 
     @Column(name = "address")
