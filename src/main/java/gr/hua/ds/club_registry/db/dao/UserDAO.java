@@ -3,7 +3,9 @@ package gr.hua.ds.club_registry.db.dao;
 
 import gr.hua.ds.club_registry.db.models.User;
 
+
 import java.util.List;
+
 
 public interface UserDAO {
     public User getUserByUsernameAndPassword( String username, String password);

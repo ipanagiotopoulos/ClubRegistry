@@ -10,4 +10,6 @@ public class ClubRegistryApplication {
         SpringApplication.run(ClubRegistryApplication.class , args);
     }
 
+
+
 }

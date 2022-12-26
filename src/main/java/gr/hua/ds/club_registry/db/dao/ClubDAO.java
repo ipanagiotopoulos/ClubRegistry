@@ -3,7 +3,8 @@ package gr.hua.ds.club_registry.db.dao;
 import java.sql.Date;
 import java.util.List;
 import gr.hua.ds.club_registry.db.models.Club;
-import gr.hua.ds.club_registry.db.models.Shop;
+
+
 
 
 public interface ClubDAO {

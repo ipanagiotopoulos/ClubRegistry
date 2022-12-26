@@ -1,7 +1,6 @@
 package gr.hua.ds.club_registry.service.impl;
 
 import gr.hua.ds.club_registry.db.dao.UserDAO;
-import gr.hua.ds.club_registry.db.dao.UserProfileDAO;
 import gr.hua.ds.club_registry.db.models.User;
 import gr.hua.ds.club_registry.service.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,11 +1,11 @@
 package gr.hua.ds.club_registry.db.dao;
 
-import gr.hua.ds.club_registry.db.enums.ShopType;
 import gr.hua.ds.club_registry.db.models.Shop;
-import jakarta.persistence.*;
+
 
 import java.sql.Date;
 import java.util.List;
+
 
 public interface ShopDAO {
         public List <Shop> getShops();

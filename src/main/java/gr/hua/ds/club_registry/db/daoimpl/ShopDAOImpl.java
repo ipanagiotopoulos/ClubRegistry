@@ -1,7 +1,6 @@
 package gr.hua.ds.club_registry.db.daoimpl;
 
 import gr.hua.ds.club_registry.db.dao.ShopDAO;
-import gr.hua.ds.club_registry.db.models.Club;
 import gr.hua.ds.club_registry.db.models.Shop;
 import jakarta.persistence.EntityManager;
 import org.hibernate.Session;
@@ -9,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Repository;
 
+
 import java.sql.Date;
 import java.util.List;
 
+@Repository
 @EnableAutoConfiguration
 public class ShopDAOImpl implements ShopDAO {
 

@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.List;
 import gr.hua.ds.club_registry.db.models.Club;
 
+
 public interface ClubService {
     public List<Club> findAllClubs();
     public List<Club> findAllActiveClubs();

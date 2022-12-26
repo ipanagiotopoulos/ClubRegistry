@@ -1,13 +1,14 @@
 package gr.hua.ds.club_registry.db.daoimpl;
 
 import gr.hua.ds.club_registry.db.dao.UserProfileDAO;
-import gr.hua.ds.club_registry.db.models.User;
 import gr.hua.ds.club_registry.db.models.UserProfile;
 import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.hibernate.Session;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.stereotype.Repository;
 
+@Repository
 @EnableAutoConfiguration
 public class UserProfileDAOImpl implements UserProfileDAO {
     @Autowired

@@ -1,6 +1,6 @@
 package gr.hua.ds.club_registry.service.impl;
 
-import gr.hua.ds.club_registry.db.dao.ClubDAO;
+
 import gr.hua.ds.club_registry.db.dao.ShopDAO;
 import gr.hua.ds.club_registry.db.models.Shop;
 import gr.hua.ds.club_registry.service.service.ShopService;
