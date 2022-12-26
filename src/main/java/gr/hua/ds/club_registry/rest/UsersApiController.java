@@ -1,21 +1,20 @@
 package gr.hua.ds.club_registry.rest;
 
-
 import gr.hua.ds.club_registry.db.enums.Roles;
 import gr.hua.ds.club_registry.db.models.User;
 import gr.hua.ds.club_registry.rest.exception.UserNotFoundException;
 import gr.hua.ds.club_registry.rest.exception.UsersNotFoundException;
 import gr.hua.ds.club_registry.service.service.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-
 
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(path="/users")
+@RequestMapping(path="/api/users")
 @CrossOrigin(origins = "http://localhost:5000",allowCredentials = "true")
 public class UsersApiController {
 

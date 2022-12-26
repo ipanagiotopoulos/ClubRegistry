@@ -1,13 +1,13 @@
 package gr.hua.ds.club_registry.service.impl;
 
+import java.util.List;
 
 import gr.hua.ds.club_registry.db.dao.ShopDAO;
 import gr.hua.ds.club_registry.db.models.Shop;
 import gr.hua.ds.club_registry.service.service.ShopService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 
 @Service

@@ -1,6 +1,6 @@
 package gr.hua.ds.club_registry.db.models;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import gr.hua.ds.club_registry.db.enums.Roles;
 import lombok.Data;
 

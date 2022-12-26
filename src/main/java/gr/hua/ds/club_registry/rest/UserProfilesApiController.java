@@ -1,14 +1,14 @@
 package gr.hua.ds.club_registry.rest;
 
-
 import gr.hua.ds.club_registry.db.models.UserProfile;
 import gr.hua.ds.club_registry.service.service.UserProfileService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(path="/userprofiles")
+@RequestMapping(path="/api/userprofiles")
 public class UserProfilesApiController {
 
     @Autowired

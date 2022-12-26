@@ -1,6 +1,7 @@
 package gr.hua.ds.club_registry.service.service;
 
 import java.util.List;
+
 import gr.hua.ds.club_registry.db.models.User;
 
 public interface UserService {

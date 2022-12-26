@@ -4,9 +4,12 @@ import gr.hua.ds.club_registry.db.dao.ClubDAO;
 import gr.hua.ds.club_registry.db.models.Club;
 
 
-import jakarta.persistence.EntityManager;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceUnit;
+import javax.persistence.PersistenceUnits;
+
 import org.hibernate.Session;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Repository;
 
@@ -19,43 +22,43 @@ import java.util.List;
 @EnableAutoConfiguration
 public class ClubDAOImpl implements ClubDAO {
 
-    @Autowired
+    @PersistenceContext
     private EntityManager clubManager;
 
     @Override
     public List <Club> getClubs() {
         Session session= this.clubManager.unwrap(Session.class);
-        return (List<Club>) session.createSelectionQuery("from clubs").getResultList();
+        return (List<Club>) session.createSQLQuery("from clubs").getResultList();
     }
 
     @Override
     public List <Club> getClubsByActiveStatus( Boolean active ) {
         Session session= this.clubManager.unwrap(Session.class);
-        return (List<Club>) session.createSelectionQuery("from clubs where clubs.active=:active").setParameter("active",active).getResultList();
+        return (List<Club>) session.createQuery("from clubs where clubs.active=:active").setParameter("active",active).getResultList();
     }
 
     @Override
     public List <Club> getClubsByTeamName( String teamName ) {
         Session session= this.clubManager.unwrap(Session.class);
-        return (List<Club>) session.createSelectionQuery("from clubs where clubs.team_name=:teamName").setParameter("teamName",teamName).getResultList();
+        return (List<Club>) session.createSQLQuery("from clubs where clubs.team_name=:teamName").setParameter("teamName",teamName).getResultList();
     }
 
     @Override
     public List <Club> getClubsByTeamNameAndActiveStatus( String teamName , Boolean active ) {
         Session session= this.clubManager.unwrap(Session.class);
-        return (List<Club>) session.createSelectionQuery("from clubs where clubs.team_name=:teamName and active=:active ").setParameter("teamName",teamName).setParameter("active",active).getResultList();
+        return (List<Club>) session.createSQLQuery("from clubs where clubs.team_name=:teamName and active=:active ").setParameter("teamName",teamName).setParameter("active",active).getResultList();
     }
 
     @Override
     public List <Club> getClubsBySupervisor( String supervisorUsername ) {
         Session session= this.clubManager.unwrap(Session.class);
-        return (List<Club>) session.createSelectionQuery("from clubs where clubs.supervisor_name=:supervisorUsername").setParameter("supervisorUsername",supervisorUsername).getResultList();
+        return (List<Club>) session.createSQLQuery("from clubs where clubs.supervisor_name=:supervisorUsername").setParameter("supervisorUsername",supervisorUsername).getResultList();
     }
 
     @Override
     public List <Club> getClubsBySupervisorAndActiveStatus( String supervisorUsername , Boolean active ) {
         Session session= this.clubManager.unwrap(Session.class);
-        return (List<Club>) session.createSelectionQuery("from clubs where clubs.supervisor_name=:supervisorUsername and active=:active").setParameter("supervisorUsername",supervisorUsername).setParameter("active",active).getResultList();
+        return (List<Club>) session.createSQLQuery("from clubs where clubs.supervisor_name=:supervisorUsername and active=:active").setParameter("supervisorUsername",supervisorUsername).setParameter("active",active).getResultList();
     }
 
 
@@ -69,7 +72,7 @@ public class ClubDAOImpl implements ClubDAO {
     @Override
     public Club getClub( String taxNo ) {
         Session session= this.clubManager.unwrap(Session.class);
-        return (Club) session.createSelectionQuery("from clubs where clubs.tex_no=:taxNo").setParameter("taxNo",taxNo).getResultList().get(0);
+        return (Club) session.createSQLQuery("from clubs where clubs.tex_no=:taxNo").setParameter("taxNo",taxNo).getResultList().get(0);
     }
 
     @Override

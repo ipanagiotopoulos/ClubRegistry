@@ -2,15 +2,13 @@ package gr.hua.ds.club_registry.db.models;
 
 import gr.hua.ds.club_registry.db.enums.ShopType;
 
-import gr.hua.ds.club_registry.db.models.Club;
-import jakarta.persistence.*;
-
-import lombok.Data;
-import lombok.AllArgsConstructor;
-
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+
+import lombok.Data;
+import lombok.AllArgsConstructor;
 
 @Entity
 @Table(

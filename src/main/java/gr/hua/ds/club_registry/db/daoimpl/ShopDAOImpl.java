@@ -2,75 +2,76 @@ package gr.hua.ds.club_registry.db.daoimpl;
 
 import gr.hua.ds.club_registry.db.dao.ShopDAO;
 import gr.hua.ds.club_registry.db.models.Shop;
-import jakarta.persistence.EntityManager;
+
 import org.hibernate.Session;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Repository;
 
-
 import java.sql.Date;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceUnit;
 
 @Repository
 @EnableAutoConfiguration
 public class ShopDAOImpl implements ShopDAO {
 
-    @Autowired
+    @PersistenceContext
     private EntityManager shopManager;
 
     @Override
     public List <Shop> getShops() {
         Session session= this.shopManager.unwrap(Session.class);
-        return (List<Shop>) session.createSelectionQuery("from shops").getResultList();
+        return (List<Shop>) session.createSQLQuery("from shops").getResultList();
     }
 
     @Override
     public List <Shop> getShopsByActiveStatus( Boolean active ) {
         Session session= this.shopManager.unwrap(Session.class);
-        return (List<Shop>) session.createSelectionQuery("from shops where shops.active=:active").setParameter("active", active).getResultList();
+        return (List<Shop>) session.createSQLQuery("from shops where shops.active=:active").setParameter("active", active).getResultList();
     }
 
     @Override
     public List <Shop> getShopsByClubName( String clubName ) {
         Session session= this.shopManager.unwrap(Session.class);
-        return (List<Shop>) session.createSelectionQuery("from shops where shops.club_name=:club_name").setParameter("club_name", clubName).getResultList();
+        return (List<Shop>) session.createSQLQuery("from shops where shops.club_name=:club_name").setParameter("club_name", clubName).getResultList();
     }
 
     @Override
     public List <Shop> getShopsByTeamName( String teamName ) {
         Session session= this.shopManager.unwrap(Session.class);
-        return (List<Shop>) session.createSelectionQuery("from shops where shops.team_name=:team_name").setParameter("team_name", teamName).getResultList();
+        return (List<Shop>) session.createSQLQuery("from shops where shops.team_name=:team_name").setParameter("team_name", teamName).getResultList();
     }
 
     @Override
     public List <Shop> getShopsByCity( String cityName ) {
         Session session= this.shopManager.unwrap(Session.class);
-        return (List<Shop>) session.createSelectionQuery("from shops where shops.city=:city").setParameter("city", cityName).getResultList();
+        return (List<Shop>) session.createSQLQuery("from shops where shops.city=:city").setParameter("city", cityName).getResultList();
     }
 
     @Override
     public List <Shop> getShopsByCityAndTeamName( String cityName , String teamName ) {
         Session session= this.shopManager.unwrap(Session.class);
-        return (List<Shop>) session.createSelectionQuery("from shops where shops.city=:city and shops.team_name=:team_name").setParameter("city", cityName).setParameter("team_name", teamName).getResultList();
+        return (List<Shop>) session.createSQLQuery("from shops where shops.city=:city and shops.team_name=:team_name").setParameter("city", cityName).setParameter("team_name", teamName).getResultList();
     }
 
     @Override
     public List <Shop> getShopsByCityAndClubName( String cityName , String clubName ) {
         Session session= this.shopManager.unwrap(Session.class);
-        return (List<Shop>) session.createSelectionQuery("from shops where shops.city=:city and shops.club_name=:club_name").setParameter("city", cityName).setParameter("club_name", clubName).getResultList();
+        return (List<Shop>) session.createSQLQuery("from shops where shops.city=:city and shops.club_name=:club_name").setParameter("city", cityName).setParameter("club_name", clubName).getResultList();
     }
 
     @Override
     public List <Shop> getShopsByTeamNameAndActiveStatus( String teamName , Boolean active ) {
         Session session= this.shopManager.unwrap(Session.class);
-        return (List<Shop>) session.createSelectionQuery("from shops where shops.team_name=:team_name and shops.active=:active").setParameter("team_name", teamName).setParameter("active", active).getResultList();
+        return (List<Shop>) session.createSQLQuery("from shops where shops.team_name=:team_name and shops.active=:active").setParameter("team_name", teamName).setParameter("active", active).getResultList();
     }
 
     @Override
     public List <Shop> getShopsByClubNameAndActiveStatus( String clubName , Boolean active ) {
         Session session= this.shopManager.unwrap(Session.class);
-        return (List<Shop>) session.createSelectionQuery("from shops where shops.club_name=:club_name and shops.active=:active").setParameter("club_name", clubName).setParameter("active", active).getResultList();
+        return (List<Shop>) session.createSQLQuery("from shops where shops.club_name=:club_name and shops.active=:active").setParameter("club_name", clubName).setParameter("active", active).getResultList();
     }
 
     //!NOT IMPLEMENTED
@@ -95,7 +96,7 @@ public class ShopDAOImpl implements ShopDAO {
     @Override
     public Shop getShop( String shopId ) {
         Session session= this.shopManager.unwrap(Session.class);
-        return (Shop) session.createSelectionQuery("from shops where shops.id=:id ").setParameter("id", shopId).getResultList();
+        return (Shop) session.createSQLQuery("from shops where shops.id=:id ").setParameter("id", shopId).getResultList();
     }
 
     @Override

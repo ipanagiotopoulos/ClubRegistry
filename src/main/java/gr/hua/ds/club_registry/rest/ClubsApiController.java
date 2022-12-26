@@ -1,22 +1,26 @@
 package gr.hua.ds.club_registry.rest;
 
-
-import gr.hua.ds.club_registry.db.models.Club;
-import gr.hua.ds.club_registry.db.models.Shop;
-import gr.hua.ds.club_registry.rest.exception.ClubNotFoundException;
-import gr.hua.ds.club_registry.rest.exception.ClubsNotFoundException;
-import gr.hua.ds.club_registry.rest.exception.ShopsNotFoundException;
-import gr.hua.ds.club_registry.service.service.ClubService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
-
 import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
+import gr.hua.ds.club_registry.db.models.Club;
+import gr.hua.ds.club_registry.rest.exception.ClubNotFoundException;
+import gr.hua.ds.club_registry.rest.exception.ClubsNotFoundException;
+import gr.hua.ds.club_registry.rest.exception.ShopsNotFoundException;
+import gr.hua.ds.club_registry.service.service.ClubService;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
+import io.swagger.annotations.Api;
+
+
+
+@Api(value = "Clubs Rest Controller")
 @RestController
-@RequestMapping(path="/clubs")
+@RequestMapping(path="/api/clubs")
 public class ClubsApiController {
 
     @Autowired
