@@ -13,10 +13,7 @@ import javax.persistence.PersistenceUnit;
 @SpringBootApplication( exclude = {
         BatchAutoConfiguration.class,
         JmxAutoConfiguration.class
-},
-        excludeName = {
-                "org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration",
-        })
+})
 public class ClubRegistryApplication {
 
     public static void main( String[] args ) {

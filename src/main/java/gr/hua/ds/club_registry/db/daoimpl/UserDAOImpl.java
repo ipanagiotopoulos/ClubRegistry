@@ -62,7 +62,6 @@ public class UserDAOImpl implements UserDAO {
     public void insertUser( User user) {
         Session session= this.userManager.unwrap(Session.class);
         session.persist(user);
-        session.persist(user.getProfile());
     }
 
     @Override
@@ -76,6 +75,5 @@ public class UserDAOImpl implements UserDAO {
     public void deleteUser( User user ) {
         Session session= this.userManager.unwrap(Session.class);
         session.remove(user);
-        session.remove(user.getProfile());
     }
 }
