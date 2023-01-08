@@ -4,6 +4,7 @@ import javax.persistence.*;
 import gr.hua.ds.club_registry.db.enums.Roles;
 import lombok.Data;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -21,6 +22,11 @@ public class User {
         @Size(min = 4, max=25)
         @Pattern(regexp = "[a-zA-Z0-9']+", message ="Only alphanumeric characters allowed!")
         private String username;
+
+
+        @Column(name = "email")
+        @Email(message = "email format is xxxx@xxx.xx")
+        private String email;
 
         @Column(name = "password")
         @NotBlank(message = "Password should not be null or empty!")
@@ -40,11 +46,6 @@ public class User {
         @Column(name = "activated")
         @NotBlank(message = "Activated should be 'true' or 'false'")
         private Boolean activated;
-
-        @PrimaryKeyJoinColumn(name = "username", referencedColumnName = "username")
-        @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-        @NotBlank
-        private UserProfile profile;
 
         @Column(name = "role")
         @NotBlank
