@@ -2,60 +2,68 @@ package gr.hua.ds.club_registry.service.impl;
 
 import java.util.List;
 
-import gr.hua.ds.club_registry.db.dao.UserDAO;
+import gr.hua.ds.club_registry.db.enums.Roles;
 import gr.hua.ds.club_registry.db.models.User;
+import gr.hua.ds.club_registry.db.repository.UserRepository;
+import gr.hua.ds.club_registry.rest.exception.UserNotFoundException;
 import gr.hua.ds.club_registry.service.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-
-
+import javax.transaction.Transactional;
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 
+    @Autowired
+    private UserRepository userDAO;
 
     @Autowired
-    private UserDAO userDAO;
+    PasswordEncoder encoder;
 
     @Override
     public User findUser( String username ) {
-        return  userDAO.getUserByUsername(username);
+        return  userDAO.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
     }
 
     @Override
     public List <User> findAllUsers() {
-        return userDAO.getUsers();
+        return (List<User>) userDAO.findAll();
     }
 
     @Override
     public List <User> findAllGGASecretaries() {
-        return  userDAO.getGGASecretaries();
+        return  userDAO.findByUserRole(Roles.ROLE_GGA);
     }
 
     @Override
     public List <User> findAllHellenicPoliceSecretaries() {
-        return  userDAO.getHellenicPoliceSecretaries();
+        return  userDAO.findByUserRole(Roles.ROLE_POLICE);
     }
 
     @Override
     public List <User> findAllClubSupervisors() {
-        return userDAO.getClubSupervisors();
+        return userDAO.findByUserRole(Roles.ROLE_CLUB_SUPERVISOR);
     }
 
     @Override
-    public void insertUser( User user ) {
-        userDAO.insertUser(user);
+    public User insertUser(User user ) {
+        user.setPassword(encoder.encode(user.getPassword()));
+        return userDAO.save(user);
     }
 
     @Override
-    public void updateUser( User oldUser , User newUser ) {
-        userDAO.updateUser(oldUser, newUser);
+    public User updateUser(User oldUser , User newUser ) {
+        oldUser.setUsername(newUser.getUsername());
+        oldUser.setEmail(newUser.getEmail());
+        return userDAO.save(oldUser);
     }
 
     @Override
     public void deleteUser( User user ) {
-        userDAO.deleteUser(user);
+        userDAO.delete(user);
     }
 }

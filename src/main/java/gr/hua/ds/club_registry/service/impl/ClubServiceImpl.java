@@ -1,13 +1,15 @@
 package gr.hua.ds.club_registry.service.impl;
 
-import gr.hua.ds.club_registry.db.dao.ClubDAO;
 import gr.hua.ds.club_registry.db.models.Club;
+import gr.hua.ds.club_registry.db.models.User;
+import gr.hua.ds.club_registry.db.repository.ClubRepository;
+import gr.hua.ds.club_registry.db.repository.UserRepository;
+import gr.hua.ds.club_registry.rest.exception.UserNotFoundException;
 import gr.hua.ds.club_registry.service.service.ClubService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
 import java.util.List;
 
 
@@ -15,65 +17,71 @@ import java.util.List;
 public class ClubServiceImpl implements ClubService {
 
     @Autowired
-    private ClubDAO clubDAO;
-
+    private ClubRepository clubDAO;
+    @Autowired
+    private UserRepository userDAO;
     @Override
     public List <Club> findAllClubs() {
-     return clubDAO.getClubs();
+     return (List<Club>) clubDAO.findAll();
     }
 
     @Override
     public List <Club> findAllActiveClubs() {
-        return clubDAO.getClubsByActiveStatus(true);
+        return clubDAO.findByActive(true);
     }
 
     @Override
     public List<Club> findAllInactiveClubs(){
-        return clubDAO.getClubsByActiveStatus(false);
+        return clubDAO.findByActive(false);
     }
 
     @Override
     public List <Club> searchClubByTeamName( String teamName ) {
-        return clubDAO.getClubsByTeamName(teamName);
+        return clubDAO.findByTeamName(teamName);
     }
 
     @Override
     public List <Club> searchBySupervisorName( String supervisorName ) {
-        return clubDAO.getClubsBySupervisor(supervisorName);
+        return clubDAO.findBySuperVisorUsername(supervisorName);
     }
 
     @Override
     public Club searchByTaxNo( String taxNo ) {
-        return clubDAO.getClub(taxNo);
+        return clubDAO.findByTaxNo(taxNo);
     }
 
     @Override
     public List <Club> searchByTeamNameAndActiveStatus( String teamName , Boolean active ) {
-        return clubDAO.getClubsByTeamNameAndActiveStatus(teamName, active);
+        return clubDAO.findByTeamNameAndActive(teamName, active);
     }
 
     @Override
     public List <Club> searchBySupervisorAndActiveStatus( String supervisor , Boolean active ) {
-        return clubDAO.getClubsBySupervisorAndActiveStatus(supervisor, active);
+        return clubDAO.findBySuperVisorUsernameAndActive(supervisor, active);
     }
 
-    @Override
-    public List <Club> searchByDatePeriod( Date fromDate , Date toDate ) {
-        return clubDAO.getClubsFromSubmissionPeriod(fromDate, toDate);
-    }
+//    @Override
+//    public List <Club> searchByDatePeriod( Date fromDate , Date toDate ) {
+//        return clubDAO.getClubsFromSubmissionPeriod(fromDate, toDate);
+//    }
 
     @Override
-    public void insertClub( Club club ) {
-       clubDAO.insertClub(club);
+    public Club insertClub(Club club ) {
+       User supervisor = userDAO.findByUsername(club.getSupervisorUsername()).orElseThrow(() -> new UserNotFoundException(club.getSupervisorUsername()));
+       club.setSuperVisor(supervisor);
+       return clubDAO.save(club);
     }
 
     @Override
     public void deleteClub( Club club ) {
-      clubDAO.deleteClub(club);
+      clubDAO.delete(club);
     }
 
     @Override
-    public void updateClub( Club oldClub , Club newClub ) {
-        clubDAO.updateClub(oldClub, newClub);
+    public Club updateClub(Club oldClub , Club newClub ) {
+        oldClub.setClubName(newClub.getClubName());
+        oldClub.setActive(newClub.getActive());
+        oldClub.setTeamName(newClub.getTeamName());
+        return clubDAO.save(oldClub);
     }
 }

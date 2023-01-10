@@ -10,8 +10,8 @@ public interface UserService {
     public List<User> findAllGGASecretaries();
     public List<User> findAllHellenicPoliceSecretaries();
     public List<User>  findAllClubSupervisors();
-    public void insertUser(User user);
-    public void updateUser(User oldUser, User newUser);
+    public User insertUser(User user);
+    public User updateUser(User oldUser, User newUser);
     public void deleteUser(User user);
 
 }
