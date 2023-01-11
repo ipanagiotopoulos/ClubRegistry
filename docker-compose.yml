@@ -20,6 +20,18 @@ services:
       # Where our data will be persisted
     volumes:
       - my-db:/var/lib/mysql
+  club_registry:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+    - mysql-db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://PostgreSQL:5432/postgres
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=password
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+
 # Names our volume
 volumes:
   my-db:
