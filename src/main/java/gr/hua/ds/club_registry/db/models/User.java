@@ -3,7 +3,9 @@ package gr.hua.ds.club_registry.db.models;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import gr.hua.ds.club_registry.db.enums.ActivityStatus;
 import gr.hua.ds.club_registry.db.enums.Roles;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -52,10 +54,12 @@ public class User {
         @JoinColumn(name = "tax_no_club", referencedColumnName = "tax_no")
         private Club associated_club;
 
-        @Column(columnDefinition = "boolean default true", nullable = false)
-        boolean enabled = true;
+        @Enumerated(EnumType.STRING)
+        @Column(name = "enabled", columnDefinition = "varchar(32) default 'SHOP'")
+        private ActivityStatus enabled;
 
         @Column(name = "role",nullable = false)
+        @Schema(description = "Role should ROLE_GGA, ROLE_ADMIN, ROLE_CLUB_SUPERVISOR, ROLE_POLICE")
         private Roles userRole;
 
 

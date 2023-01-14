@@ -1,5 +1,6 @@
 package gr.hua.ds.club_registry.config;
 
+import gr.hua.ds.club_registry.db.enums.ActivityStatus;
 import gr.hua.ds.club_registry.db.enums.Roles;
 import gr.hua.ds.club_registry.db.repository.UserRepository;
 import gr.hua.ds.club_registry.db.models.User;
@@ -39,7 +40,7 @@ public class MyUserDetailsService implements UserDetailsService {
 
 
         return new org.springframework.security.core.userdetails.User(
-                user.getUsername(), user.getPassword(), user.isEnabled(), true, true,
+                user.getUsername(), user.getPassword(), user.getEnabled() == ActivityStatus.ACTIVATED, true, true,
                 true,getGrantedAuthorities(user.getUserRole()));
     }
 

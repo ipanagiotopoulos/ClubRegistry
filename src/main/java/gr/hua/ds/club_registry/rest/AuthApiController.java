@@ -19,6 +19,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
 
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -55,10 +56,11 @@ public class AuthApiController {
     @PostMapping("/auth/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody User user) {
         if (userRepository.existsByUsername(user.getUsername())) {
-            throw new CustomException("Username already exists", HttpStatus.BAD_REQUEST);
+            ResponseEntity<String> userFound = new ResponseEntity("User found",HttpStatus.CONFLICT);
+            return userFound;
         }
         user.setPassword(encoder.encode(user.getPassword()));
-        user.setUserRole(Roles.ROLE_CLUB_SUPERVISOR);
+        user.setUserRole(user.getUserRole());
         userRepository.save(user);
         return ResponseEntity.ok("User registered successfully!");
     }

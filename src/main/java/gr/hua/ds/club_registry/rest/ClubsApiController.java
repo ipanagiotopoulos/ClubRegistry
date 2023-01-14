@@ -26,66 +26,66 @@ public class ClubsApiController {
     @Autowired
     private ClubService clubService;
 
-    @PreAuthorize("hasRole('ROLE_GGA')")
+    @PreAuthorize("hasRole('ROLE_GGA') || hasRole('ROLE_ADMIN')" )
     @GetMapping("")
     public List<Club> getAllClubs(){
         Optional <List<Club>> clubs = Optional.ofNullable(clubService.findAllClubs());
         return clubs.orElseThrow(() ->new ShopsNotFoundException());
     }
 
-    @PreAuthorize("hasRole('ROLE_GGA')")
+    @PreAuthorize("hasRole('ROLE_GGA') || hasRole('ROLE_ADMIN')")
     @GetMapping("/all_based_on_activity")
     public List<Club> getAllClubsActiveInactive( @RequestParam(name="active") Boolean active ){
         Optional <List<Club>> activeClubs = Optional.ofNullable(active?clubService.findAllActiveClubs():clubService.findAllInactiveClubs());
         return activeClubs.orElseThrow(() ->new ClubsNotFoundException() );
     }
 
-    @PreAuthorize("hasRole('ROLE_GGA')")
+    @PreAuthorize("hasRole('ROLE_GGA') || hasRole('ROLE_ADMIN')")
     @GetMapping("/all_team_name")
     public List<Club> getAllClubsByTeamName(@RequestParam(name="team_name") String teamName){
         Optional <List<Club>> clubs = Optional.ofNullable(clubService.searchClubByTeamName(teamName));
         return clubs.orElseThrow(() ->new ShopsNotFoundException() );
     }
 
-    @PreAuthorize("hasRole('ROLE_GGA')")
+    @PreAuthorize("hasRole('ROLE_GGA') || hasRole('ROLE_ADMIN')")
     @GetMapping("/all_supervisor_name")
     public List<Club> getClubsBySupervisorName(@RequestHeader String supervisorName){
         Optional <List<Club>> clubs = Optional.ofNullable(clubService.searchBySupervisorName(supervisorName));
         return clubs.orElseThrow(() ->new ShopsNotFoundException() );
     }
 
-    @PreAuthorize("hasRole('ROLE_GGA')")
+    @PreAuthorize("hasRole('ROLE_GGA') || hasRole('ROLE_ADMIN')")
     @GetMapping("/team_active")
     public List<Club> getAllShopsByTeamNameAndActive(@RequestParam(name="team_name") String teamName, @RequestParam(name="active_Status") Boolean active){
         Optional <List<Club>> clubs = Optional.ofNullable(clubService.searchByTeamNameAndActiveStatus(teamName, active));
         return clubs.orElseThrow(() ->new ShopsNotFoundException() );
     }
 
-    @PreAuthorize("hasRole('ROLE_GGA')")
+    @PreAuthorize("hasRole('ROLE_GGA') || hasRole('ROLE_ADMIN')")
     @GetMapping("/find")
     public Club findClub(@RequestHeader(name="tax_no") String taxNo){
         Optional <Club> club = Optional.ofNullable(clubService.searchByTaxNo(taxNo));
         return club.orElseThrow(() ->new ClubNotFoundException() );
     }
-    @PreAuthorize("hasRole('ROLE_GGA')")
+    @PreAuthorize("hasRole('ROLE_GGA') || hasRole('ROLE_ADMIN')")
     @GetMapping("/supervisor_active")
     public List<Club> searchBySupervisorAndActiveStatus(@RequestHeader String supervisor, @RequestHeader Boolean active){
         Optional <List<Club>> clubs = Optional.ofNullable(clubService.searchBySupervisorAndActiveStatus(supervisor,active));
         return clubs.orElseThrow(() ->new ClubNotFoundException() );
     }
 
-    @PreAuthorize("hasRole('ROLE_CLUB_SUPERVISOR')")
+    @PreAuthorize("hasRole('ROLE_CLUB_SUPERVISOR') || hasRole('ROLE_ADMIN') ")
     @PostMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Club insertClub(@RequestBody Club club){
         return clubService.insertClub(club);
     }
-    @PreAuthorize("hasRole('ROLE_CLUB_SUPERVISOR')")
+    @PreAuthorize("hasRole('ROLE_CLUB_SUPERVISOR') || hasRole('ROLE_ADMIN') ")
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Club updateClub(@RequestBody Club club){
         return clubService.insertClub(club); //needs changes
     }
 
-    @PreAuthorize("hasRole('ROLE_CLUB_SUPERVISOR')")
+    @PreAuthorize("hasRole('ROLE_CLUB_SUPERVISOR') || hasRole('ROLE_ADMIN') ")
     @DeleteMapping("")
     public Club deleteClub(@RequestBody Club club){
         clubService.deleteClub(club);
