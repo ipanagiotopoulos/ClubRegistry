@@ -3,6 +3,7 @@ package gr.hua.ds.club_registry.service.service;
 import gr.hua.ds.club_registry.db.models.Shop;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ShopService {
     public List <Shop> findAllShops();
@@ -15,10 +16,10 @@ public interface ShopService {
     public List <Shop> findShopsByCityAndClubName( String cityName , String clubName );
     public List <Shop> findShopsByTeamNameAndActiveStatus( String teamName , Boolean active );
     public List <Shop> findShopsByClubNameAndActiveStatus( String clubName , Boolean active );
-    public Shop findShop( String shopId );
-    public void insertShop( Shop shop );
+    public Optional<Shop> findShop(int shopId );
+    public Shop insertShop(Shop shop );
     public void deleteShop( Shop shop );
-    public void updateShop( Shop oldShop , Shop newShop );
+    public Shop updateShop(Shop oldShop , Shop newShop );
 
 
 }

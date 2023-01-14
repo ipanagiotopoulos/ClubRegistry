@@ -1,16 +1,17 @@
 package gr.hua.ds.club_registry.db.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import gr.hua.ds.club_registry.db.enums.ShopType;
 
-import gr.hua.ds.club_registry.db.models.Club;
-import jakarta.persistence.*;
-
-import lombok.Data;
-import lombok.AllArgsConstructor;
-
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+
+import lombok.Data;
+import lombok.AllArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Table(
@@ -22,14 +23,12 @@ import javax.validation.constraints.Size;
 @Data
 public class Shop {
     @Id
-    @GeneratedValue
-    @NotBlank
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private String  ShopId;
+    private int  id;
 
-    @Column(name = "active")
-    @NotBlank(message = "Active should be 'true' or 'false'")
-    private Boolean active;
+    @Column(name="active",columnDefinition = "boolean default false", nullable = false)
+    private Boolean active = false;
 
     @Column(name = "city")
     @NotBlank(message = "City should not be empty or null")
@@ -42,14 +41,18 @@ public class Shop {
     private String address;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "shop_type", columnDefinition="ENUM('ROOM','SHOP'")
-    @NotBlank(message = "Shop Type should be either 'SHOP' or 'ROOM'")
+    @Column(name = "shop_type", columnDefinition = "varchar(32) default 'SHOP'")
+    //@NotBlank(message = "Shop Type should be either 'SHOP' or 'ROOM'")
     private ShopType shopType;
 
-    @ManyToOne
-    @JoinColumn(name="tax_no", nullable=false)
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @JoinColumn(name="club_tax_no",referencedColumnName = "tax_no", nullable=false)
     private Club club;
 
+    @Transient
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private String clubTaxNo;
 
     public Shop() {
 
